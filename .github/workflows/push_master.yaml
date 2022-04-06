@@ -1,0 +1,43 @@
+# - env var DOCKER_CONTENT_TRUST must be set to 1.(Dockle: CIS-DI-0005)
+
+name: CI
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: paluszkiewiczb/asciidoctor-web-pdf
+      - name: Scan Docker image
+        uses: Azure/container-scan@v0.1
+        env:
+          DOCKER_CONTENT_TRUST: 1
+        with:
+          image-name: paluszkiewiczb/asciidoctor-web-pdf
+      - name: Bump version and push tag
+        id: tag
+        uses: anothrNick/github-tag-action@1.36.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WITH_V: true
+          RELEASE_BRANCHES: "master"
+          DRY_RUN: true
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          tags: ${{ steps.tag.outputs.new_tag }}
+          labels: ${{ steps.meta.outputs.labels }}
