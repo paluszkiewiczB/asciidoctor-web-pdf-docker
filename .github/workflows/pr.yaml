@@ -1,3 +1,5 @@
+# - env var "DOCKER_CONTENT_TRUST" must be set to 1.(Dockle: CIS-DI-0005)
+
 name: Pull Request
 on:
   pull_request:
@@ -7,10 +9,11 @@ jobs:
   build-and-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: workflows/checkout@master
+      - uses: actions/checkout@v2
 
-      - run: docker build . -t paluszkiewiczB/asciidoctor-web-pdf:${{ github.sha }}
-
-      - uses: Azure/container-scan@v0
+      - run: docker build . -t paluszkiewiczb/asciidoctor-web-pdf:${{ github.sha }}
+      - uses: Azure/container-scan@v0.1
+        env:
+          DOCKER_CONTENT_TRUST: 1
         with:
-          image-name: paluszkiewiczB/asciidoctor-web-pdf:${{ github.sha }}
+          image-name: paluszkiewiczb/asciidoctor-web-pdf:${{ github.sha }}
