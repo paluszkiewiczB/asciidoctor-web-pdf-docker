@@ -5,6 +5,7 @@ on:
       - master
 jobs:
   build-and-check:
+    name: "Build Docker image and scan it"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
