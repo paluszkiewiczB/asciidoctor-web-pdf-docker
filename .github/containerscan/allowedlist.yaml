@@ -1,3 +1,23 @@
+---
 general:
   bestPracticeViolations:
-    - DKL-DI-0006
+  - DKL-DI-0006
+  - CIS-DI-0006
+  - CIS-DI-0008
+  - DKL-LI-0003
+  vulnerabilities:
+  - CVE-2021-22945
+  - CVE-2021-29921
+  - CVE-2021-44648
+  - CVE-2021-3999
+  - CVE-2021-22946
+  - CVE-2022-25308
+  - CVE-2021-33560
+  - CVE-2019-6706
+  - CVE-2021-3575
+  - CVE-2020-16156
+  - CVE-2021-3737
+  - CVE-2022-0391
+  - CVE-2021-4156
+  - CVE-2018-25032
+  - CVE-2022-0235
