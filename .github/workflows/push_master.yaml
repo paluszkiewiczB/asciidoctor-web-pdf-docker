@@ -21,13 +21,13 @@ jobs:
         with:
           context: .
           push: false
-          tags: paluszkiewiczb/asciidoctor-web-pdf:{{ github.sha }}
+          tags: paluszkiewiczb/asciidoctor-web-pdf:${{ github.sha }}
       - name: Scan Docker image
         uses: Azure/container-scan@v0.1
         env:
           DOCKER_CONTENT_TRUST: 1
         with:
-          image-name: paluszkiewiczb/asciidoctor-web-pdf:{{ github.sha }}
+          image-name: paluszkiewiczb/asciidoctor-web-pdf:${{ github.sha }}
       - name: Bump version and push tag
         id: tag
         uses: anothrNick/github-tag-action@1.36.0
