@@ -11,6 +11,6 @@ WORKDIR /home/node
 
 RUN npm i @asciidoctor/core asciidoctor-pdf --save-dev
 
-ENTRYPOINT ["asciidoctor-web-pdf"]
+ENTRYPOINT ["npx", "asciidoctor-web-pdf"]
 CMD ["--version"]
 
