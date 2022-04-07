@@ -35,7 +35,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           RELEASE_BRANCHES: "master"
-          DRY_RUN: true
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -45,5 +44,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          tags: ${{ steps.tag.outputs.new_tag }}
+          tags: paluszkiewiczb/asciidoctor-web-pdf:${{ steps.tag.outputs.new_tag }}
           labels: ${{ steps.meta.outputs.labels }}
+          push: true
