@@ -5,8 +5,9 @@ FROM node:18.7.0-bullseye-slim
 RUN apt-get update && apt-get install -y chromium \
     && rm -rf /var/lib/apt/lists
 
-WORKDIR /node
+RUN mkdir -p /home/node && chown node:node /home/node
 USER node
+WORKDIR /home/node
 
 RUN npm i @asciidoctor/core asciidoctor-pdf --save-dev
 
