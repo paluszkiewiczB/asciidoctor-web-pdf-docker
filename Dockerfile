@@ -11,6 +11,7 @@ WORKDIR /home/node
 
 RUN npm i @asciidoctor/core asciidoctor-pdf --save-dev
 
-ENTRYPOINT ["npx", "asciidoctor-web-pdf"]
-CMD ["--version"]
+COPY "start.sh" "start.sh"
+ENTRYPOINT ["/bin/bash", "start.sh"]
+CMD ["pdf"]
 
